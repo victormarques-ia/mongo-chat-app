@@ -16,6 +16,7 @@ mongoose.connection.once("open", () => {
   console.log('📦 MongoDB Connected!');
 });
 
+import('./models/User');
 
 app.listen(process.env.PORT || 3001, () => {
   console.log(`READY at port ${process.env.PORT || 3001}`);
