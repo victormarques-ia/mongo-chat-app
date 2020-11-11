@@ -26,6 +26,7 @@ class Application {
 
   routes() {
     this.express.use('/user', routes.user);
+    this.express.use('/chatroom', routes.chatroom);
   }
 }
 
