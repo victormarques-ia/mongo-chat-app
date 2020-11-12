@@ -29,6 +29,12 @@ class ChatroomRepository {
     return result;
   }
 
+  async findAllChatrooms(): Promise<IResultChatroomDTO[]> {
+    const result = Chatroom.find({});
+
+    return result;
+  }
+
 }
 
 export default new ChatroomRepository();

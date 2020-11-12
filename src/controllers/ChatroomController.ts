@@ -20,6 +20,12 @@ class ChatroomController {
       message: 'Chatroom [' + name + '] created successfully!'
     })
   }
+
+  async findAll(req: Request, res: Response): Promise<Response> {
+    const chatrooms = await ChatroomRepository.findAllChatrooms();
+
+    return res.json(chatrooms);
+  }
 }
 
 export default new ChatroomController();

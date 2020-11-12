@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
 import { app } from './app';
 
 require('dotenv/config');
@@ -17,9 +18,33 @@ mongoose.connection.once("open", () => {
 });
 
 import('./models/User');
+import('./models/Chatroom');
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log(`READY at port ${process.env.PORT || 3001}`);
+const server = app.listen(process.env.PORT || 8000, () => {
+  console.log(`READY at port ${process.env.PORT || 8000}`);
+});
+
+const io = require('socket.io')(server, {
+  cors:true,
+  origins:["http://localhost:3000"],
+ });
+
+io.use(async (socket, next) => {
+  try {
+    const token = socket.handshake.query.token;
+    const payload = await jwt.verify(token, process.env.SECRET);
+    console.log(payload);
+    socket.userId = payload.id;
+    next();
+  } catch (err) {}
+});
+
+io.on("connection", (socket) => {
+  console.log("Connected: " + socket.userId);
+
+  socket.on("disconnect", () => {
+    console.log("Disconnected: " + socket.userId);
+  });
 });
 
 

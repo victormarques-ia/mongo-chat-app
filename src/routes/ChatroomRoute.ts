@@ -6,7 +6,10 @@ import { auth } from '../middlewares/auth';
 
 const router = Router();
 
-router.post('/', auth, catchErrors(ChatroomController.create));
+router
+  .route('/')
+  .post(auth, catchErrors(ChatroomController.create))
+  .get(auth, catchErrors(ChatroomController.findAll));
 
 
 export default router;
