@@ -26,6 +26,15 @@ class ChatroomController {
 
     return res.json(chatrooms);
   }
+
+  async deleteById(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    await ChatroomRepository.deleteChatroomById(id);
+
+    return res.json({
+      message: 'Chatroom deleted successfully!'
+    });
+  }
 }
 
 export default new ChatroomController();

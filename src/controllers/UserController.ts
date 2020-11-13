@@ -14,7 +14,7 @@ class UserController {
 
     if(password.length < 6) throw "Password must be atleast 6 characters long.";
 
-    const userExists = await UserRepository.findUser(email);
+    const userExists = await UserRepository.findUserByEmail(email);
 
     if(userExists) throw "User with same email already exists";
 
@@ -35,8 +35,8 @@ class UserController {
 
     if (!user) throw "Email and Password did not match.";
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET);
-
+    const token = jwt.sign({ id: user._id }, process.env.SECRET);
+    
     return res.json({
       message: 'User logged in successfully!',
       token

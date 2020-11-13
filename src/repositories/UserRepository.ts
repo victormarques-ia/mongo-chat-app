@@ -7,7 +7,7 @@ interface ICreateUserDTO {
 }
 
 interface IResultUserDTO extends ICreateUserDTO{
-  id?: string;
+  _id?: string;
 }
 
 class UserRepository {
@@ -34,9 +34,17 @@ class UserRepository {
     return result;
   }
 
-  async findUser(email: string): Promise<IResultUserDTO> {
+  async findUserByEmail(email: string): Promise<IResultUserDTO> {
     const result = User.findOne({
       email
+    });
+
+    return result;
+  }
+
+  async findUserById({ id }: any): Promise<IResultUserDTO> {
+    const result = User.findOne({
+      _id: id
     });
 
     return result;

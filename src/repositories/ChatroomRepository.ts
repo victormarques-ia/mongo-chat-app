@@ -5,7 +5,7 @@ interface ICreateChatroomDTO {
 }
 
 interface IResultChatroomDTO extends ICreateChatroomDTO{
-  id?: string;
+  _id?: string;
 }
 
 class ChatroomRepository {
@@ -33,6 +33,12 @@ class ChatroomRepository {
     const result = Chatroom.find({});
 
     return result;
+  }
+
+  async deleteChatroomById(id: string): Promise<void> {
+    await Chatroom.deleteOne({
+      _id: id
+    });
   }
 
 }

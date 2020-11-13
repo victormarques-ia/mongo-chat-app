@@ -11,5 +11,9 @@ router
   .post(auth, catchErrors(ChatroomController.create))
   .get(auth, catchErrors(ChatroomController.findAll));
 
+router
+  .route('/:id')
+  .delete(auth, catchErrors(ChatroomController.deleteById))
+
 
 export default router;
