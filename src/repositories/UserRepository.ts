@@ -50,6 +50,12 @@ class UserRepository {
     return result;
   }
 
+  async findAllUsers(): Promise<IResultUserDTO[]> {
+    const result = await User.find();
+
+    return result;
+  }
+
 }
 
 export default new UserRepository();

@@ -39,9 +39,17 @@ class UserController {
     
     return res.json({
       message: 'User logged in successfully!',
-      token
+      token,
+      user
     });
   }
+
+  async findAll(req: Request, res: Response) {
+    const users = await UserRepository.findAllUsers();
+
+    return res.json(users);
+  }
+
 }
 
 export default new UserController();

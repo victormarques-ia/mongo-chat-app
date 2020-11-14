@@ -8,11 +8,11 @@ interface IResultMessageDTO {
 
 class MessageRepository {
 
-  async findMessagesByChatroomId(chatroomId: any): Promise<IResultMessageDTO[]> {
+  async findMessagesByConversationId(conversationId: any): Promise<IResultMessageDTO[]> {
 
     const messages = await Message.find({
-      chatroom: chatroomId
-    }).populate('user').populate('chatroom').exec();
+      conversation: conversationId
+    }).populate('user').populate('conversation').exec();
 
     const result = await Promise.all(messages.map(async message => {
       return {

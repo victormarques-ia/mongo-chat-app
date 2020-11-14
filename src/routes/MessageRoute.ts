@@ -6,7 +6,7 @@ import { auth } from '../middlewares/auth';
 
 const router = Router();
 
-router.get('/:chatroomId', auth, catchErrors(MessageController.find));
+router.get('/:conversationId', auth, catchErrors(MessageController.find));
 
 
 export default router;

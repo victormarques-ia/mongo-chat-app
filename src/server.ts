@@ -48,24 +48,25 @@ io.on('connection', (socket) => {
     console.log('Disconnected: ' + socket.userId);
   });
 
-  socket.on('joinRoom', ({ chatroomId }) => {
-    socket.join(chatroomId);
-    console.log('A user joined chatroom: ' + chatroomId);
+  socket.on('joinRoom', ({ conversationId }) => {
+    socket.join(conversationId);
+    console.log('A user joined chatroom: ' + conversationId);
   });
 
-  socket.on('leaveRoom', ({ chatroomId }) => {
-    socket.leave(chatroomId);
-    console.log('A user left chatroom: ' + chatroomId);
+  socket.on('leaveRoom', ({ conversationId }) => {
+    socket.leave(conversationId);
+    console.log('A user left chatroom: ' + conversationId);
   });
 
-  socket.on('chatroomMessage', async ({ chatroomId, message}) => {
+  socket.on('conversationMessage', async ({ conversationId, message}) => {
    if(message.trim().length > 0) {
 
      const user = await UserRepository.findUserById({ id: socket.userId })
      
-     const newMessage = new Message({ chatroom: chatroomId, user: socket.userId, message });
-
-    io.to(chatroomId).emit('newMessage', {
+     const newMessage = new Message({ conversation: conversationId, user: socket.userId, message });
+    
+    /* io.to(conversationId) */
+    io.to(conversationId).emit('newMessage', {
       message,
       name: user.name,
       userId: socket.userId
