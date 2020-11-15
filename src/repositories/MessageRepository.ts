@@ -25,6 +25,10 @@ class MessageRepository {
     return result;
   }
 
+  async deleteMessages(conversationId: any): Promise<void> {
+    await Message.deleteMany({ conversation: conversationId })
+  }
+
 }
 
 export default new MessageRepository();

@@ -1,5 +1,6 @@
 import Conversation from '../models/Conversation';
 import { IUser } from 'models/User';
+import MessageRepository from './MessageRepository';
 
 interface ICreateConversationDTO {
   users: IUser[];
@@ -41,6 +42,7 @@ class ConversationRepository {
   }
 
   async deleteConversationById(id: string): Promise<void> {
+    await MessageRepository.deleteMessages(id);
     await Conversation.deleteOne({
       _id: id
     });

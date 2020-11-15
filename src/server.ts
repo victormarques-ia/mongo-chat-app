@@ -64,8 +64,7 @@ io.on('connection', (socket) => {
      const user = await UserRepository.findUserById({ id: socket.userId })
      
      const newMessage = new Message({ conversation: conversationId, user: socket.userId, message });
-    
-    /* io.to(conversationId) */
+
     io.to(conversationId).emit('newMessage', {
       message,
       name: user.name,
